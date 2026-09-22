@@ -1122,6 +1122,84 @@ function creaCalendario() {
 
                 elementoGiorno.textContent =
                     numeroGiorno;
+                /* ====================================
+   ANTEPRIMA EVENTI NEL CALENDARIO
+==================================== */
+
+const dataStringa =
+    dataComeStringa(dataGiorno);
+
+const eventiDelGiorno =
+    eventi.filter(
+        function (evento) {
+
+            return (
+                evento.data ===
+                dataStringa
+            );
+
+        }
+    );
+
+if (eventiDelGiorno.length > 0) {
+
+    const contenitoreEventi =
+        document.createElement("div");
+
+    contenitoreEventi.classList.add(
+        "anteprima-eventi"
+    );
+
+    eventiDelGiorno.forEach(
+        function (evento) {
+
+            const anteprima =
+                document.createElement("div");
+
+            anteprima.classList.add(
+                "anteprima-evento"
+            );
+
+            if (
+                isEventoMuseo(evento)
+            ) {
+
+                anteprima.classList.add(
+                    "anteprima-museo"
+                );
+
+            }
+
+            anteprima.textContent =
+                evento.inizio +
+                " " +
+                evento.titolo;
+
+            anteprima.addEventListener(
+                "click",
+                function (event) {
+
+                    event.stopPropagation();
+
+                    apriGiorno(
+                        dataGiorno
+                    );
+
+                }
+            );
+
+            contenitoreEventi.appendChild(
+                anteprima
+            );
+
+        }
+    );
+
+    elementoGiorno.appendChild(
+        contenitoreEventi
+    );
+
+}
 
 
                 elementoGiorno.addEventListener(
