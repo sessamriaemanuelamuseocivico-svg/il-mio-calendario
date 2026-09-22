@@ -2153,6 +2153,253 @@ backButton.addEventListener(
     }
 );
 
+/* ========================================
+   TODO LIST
+======================================== */
+
+let attivita = [];
+
+
+async function caricaAttivitaDaSupabase() {
+
+    const { data, error } =
+        await supabaseClient
+            .from("attivita")
+            .select("*")
+            .order("completata")
+            .order("scadenza", {
+                ascending: true,
+                nullsFirst: false
+            });
+
+    if (error) {
+
+        console.error(
+            "Errore caricamento attività:",
+            error
+        );
+
+        return;
+    }
+
+    attivita = data || [];
+
+    mostraAttivita();
+}
+
+
+function mostraAttivita() {
+
+    const lista =
+        document.getElementById(
+            "todo-list"
+        );
+
+    const conteggio =
+        document.getElementById(
+            "todo-count"
+        );
+
+
+    lista.innerHTML = "";
+
+
+    const daFare =
+        attivita.filter(
+            function (attivita) {
+                return !attivita.completata;
+            }
+        ).length;
+
+
+    const completate =
+        attivita.filter(
+            function (attivita) {
+                return attivita.completata;
+            }
+        ).length;
+
+
+    conteggio.textContent =
+        daFare +
+        " da fare · " +
+        completate +
+        " completate";
+
+
+    attivita.forEach(
+        function (attivita) {
+
+            const elemento =
+                document.createElement(
+                    "div"
+                );
+
+            elemento.classList.add(
+                "todo-item"
+            );
+
+
+            if (attivita.completata) {
+
+                elemento.classList.add(
+                    "completata"
+                );
+
+            }
+
+
+            const checkbox =
+                document.createElement(
+                    "input"
+                );
+
+            checkbox.type = "checkbox";
+
+            checkbox.classList.add(
+                "todo-checkbox"
+            );
+
+            checkbox.checked =
+                attivita.completata;
+
+
+            const contenuto =
+                document.createElement(
+                    "div"
+                );
+
+            contenuto.classList.add(
+                "todo-content"
+            );
+
+
+            const titolo =
+                document.createElement(
+                    "div"
+                );
+
+            titolo.classList.add(
+                "todo-title"
+            );
+
+            titolo.textContent =
+                attivita.titolo;
+
+
+            contenuto.appendChild(
+                titolo
+            );
+
+
+            if (attivita.scadenza) {
+
+                const scadenza =
+                    document.createElement(
+                        "div"
+                    );
+
+                scadenza.classList.add(
+                    "todo-deadline"
+                );
+
+                scadenza.textContent =
+                    "📅 Scadenza: " +
+                    attivita.scadenza;
+
+                contenuto.appendChild(
+                    scadenza
+                );
+
+            }
+
+
+            if (attivita.note) {
+
+                const note =
+                    document.createElement(
+                        "div"
+                    );
+
+                note.classList.add(
+                    "todo-notes"
+                );
+
+                note.textContent =
+                    attivita.note;
+
+                contenuto.appendChild(
+                    note
+                );
+
+            }
+
+
+            const azioni =
+                document.createElement(
+                    "div"
+                );
+
+            azioni.classList.add(
+                "todo-actions"
+            );
+
+
+            const modifica =
+                document.createElement(
+                    "button"
+                );
+
+            modifica.type = "button";
+
+            modifica.textContent = "✏️";
+
+            modifica.title =
+                "Modifica attività";
+
+
+            const elimina =
+                document.createElement(
+                    "button"
+                );
+
+            elimina.type = "button";
+
+            elimina.textContent = "🗑️";
+
+            elimina.title =
+                "Elimina attività";
+
+
+            azioni.appendChild(
+                modifica
+            );
+
+            azioni.appendChild(
+                elimina
+            );
+
+
+            elemento.appendChild(
+                checkbox
+            );
+
+            elemento.appendChild(
+                contenuto
+            );
+
+            elemento.appendChild(
+                azioni
+            );
+
+
+            lista.appendChild(
+                elemento
+            );
+
+        }
+    );
+}
 
 /* ========================================
    AVVIO
@@ -2181,9 +2428,11 @@ async function avviaCalendarioDopoLogin() {
 
         await migraEventiLocaliSeNecessario();
 
-        await caricaEventiDaSupabase();
+       await caricaEventiDaSupabase();
 
-        creaCalendario();
+await caricaAttivitaDaSupabase();
+
+creaCalendario();
 
     } catch (errore) {
 
