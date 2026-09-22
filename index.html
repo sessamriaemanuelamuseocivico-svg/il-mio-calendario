@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Il mio calendario</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+    <div id="login-screen">
+
+    <div id="login-box">
+
+        <h1>📅 Il mio calendario</h1>
+
+        <p>Accedi per continuare</p>
+
+        <form id="login-form">
+
+            <label for="login-email">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="login-email"
+                placeholder="La tua email"
+                required
+            >
+
+            <label for="login-password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="login-password"
+                placeholder="La tua password"
+                required
+            >
+
+            <button type="submit">
+                Accedi
+            </button>
+
+            <p id="login-error"></p>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<header>
+
+    <h1>Il mio calendario</h1>
+
+</header>
+
+
+<main>
+
+
+    <!-- ============================= -->
+    <!-- VISTA CALENDARIO -->
+    <!-- ============================= -->
+
+    <section id="calendar-view">
+
+        <div id="calendar"></div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- VISTA GIORNALIERA -->
+    <!-- ============================= -->
+
+    <section
+        id="day-view"
+        class="hidden"
+    >
+
+        <div class="day-view-header">
+
+            <button id="back-to-calendar">
+                ← Torna al calendario
+            </button>
+
+            <h2 id="selected-date"></h2>
+
+        </div>
+
+
+        <div class="day-layout">
+
+
+            <!-- ============================= -->
+            <!-- TIMELINE -->
+            <!-- ============================= -->
+
+            <div class="timeline">
+
+                <div id="hours"></div>
+
+            </div>
+
+
+            <!-- ============================= -->
+            <!-- RIEPILOGO -->
+            <!-- ============================= -->
+
+          <aside class="summary">
+
+    <h2>Riepilogo</h2>
+
+    <!-- ORE DEL GIORNO -->
+
+    <div class="summary-section">
+
+        <h3>Giornata</h3>
+
+        <div class="summary-item">
+            <span>Ore MUSEO</span>
+            <strong id="daily-museum-hours">
+                0h 00m
+            </strong>
+        </div>
+
+        <div class="summary-item">
+            <span>Eventi</span>
+            <strong id="event-count">
+                0
+            </strong>
+        </div>
+
+    </div>
+
+
+    <hr>
+
+
+    <!-- PROGETTO -->
+
+    <div class="summary-section">
+
+        <h3>Servizio civile</h3>
+
+        <div class="summary-item">
+            <span>Totale progetto</span>
+
+            <strong>
+                1440h 00m
+            </strong>
+        </div>
+
+
+        <div class="summary-item">
+
+            <span>Ore completate</span>
+
+            <strong id="project-completed">
+                423h 01m
+            </strong>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            <span>Ore rimanenti</span>
+
+            <strong id="project-remaining">
+                1016h 59m
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <hr>
+
+
+    <!-- SETTIMANA -->
+
+    <div class="summary-section">
+
+        <h3>Questa settimana</h3>
+
+        <div class="summary-item">
+
+            <span>Ore MUSEO</span>
+
+            <strong id="weekly-museum-hours">
+                0h 00m
+            </strong>
+
+        </div>
+
+    </div>
+
+</aside>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- MODULO EVENTO -->
+        <!-- ============================= -->
+
+        <div
+            id="event-form-container"
+            class="hidden"
+        >
+
+            <form id="event-form">
+
+
+                <h2 id="form-title">
+                    Nuovo evento
+                </h2>
+
+
+                <!-- ATTIVITÀ -->
+
+                <label for="event-title">
+                    Attività
+                </label>
+
+                <input
+                    type="text"
+                    id="event-title"
+                    placeholder="Es. Riunione"
+                    required
+                >
+
+
+                <!-- ORARI -->
+
+                <div class="form-row">
+
+
+                    <div>
+
+                        <label for="event-start">
+                            Inizio
+                        </label>
+
+                        <input
+                            type="time"
+                            id="event-start"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label for="event-end">
+                            Fine
+                        </label>
+
+                        <input
+                            type="time"
+                            id="event-end"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- NOTE -->
+
+                <label for="event-notes">
+                    Note
+                </label>
+
+                <textarea
+                    id="event-notes"
+                    rows="4"
+                    placeholder="Eventuali note..."
+                ></textarea>
+
+
+                <!-- PULSANTI -->
+
+                <div class="form-buttons">
+
+
+                    <button
+                        type="submit"
+                    >
+                        Salva
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="cancel-event"
+                    >
+                        Annulla
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="delete-event"
+                    >
+                        Elimina evento
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
+
+</body>
+
+</html>
