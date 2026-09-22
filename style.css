@@ -931,3 +931,49 @@ main {
 
     margin-top: 15px;
 }
+
+/* ========================================
+   ANTEPRIMA EVENTI NEL CALENDARIO
+======================================== */
+
+.anteprima-eventi {
+    margin-top: 8px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+
+    width: 100%;
+}
+
+.anteprima-evento {
+    padding: 4px 6px;
+
+    border-radius: 5px;
+
+    background-color: #eef3ff;
+    color: #315ea8;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    cursor: pointer;
+}
+
+.anteprima-evento:hover {
+    background-color: #dce8ff;
+}
+
+.anteprima-museo {
+    background-color: #4d90fe;
+    color: white;
+}
+
+.anteprima-museo:hover {
+    background-color: #3478d4;
+}
