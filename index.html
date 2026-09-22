@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="it">
 
@@ -83,9 +82,116 @@
 
     <section id="calendar-view">
 
-        <div id="calendar"></div>
+    <div id="calendar"></div>
+
+
+    <!-- ============================= -->
+    <!-- TODO LIST -->
+    <!-- ============================= -->
+
+    <section id="todo-section">
+
+        <div class="todo-header">
+
+            <div>
+                <h2>✅ Attività</h2>
+
+                <p id="todo-count">
+                    0 attività
+                </p>
+            </div>
+
+            <button
+                type="button"
+                id="add-todo-button"
+            >
+                + Nuova attività
+            </button>
+
+        </div>
+
+
+        <!-- FORM TODO -->
+
+        <div
+            id="todo-form-container"
+            class="hidden"
+        >
+
+            <form id="todo-form">
+
+                <h3 id="todo-form-title">
+                    Nuova attività
+                </h3>
+
+
+                <label for="todo-title">
+                    Titolo
+                </label>
+
+                <input
+                    type="text"
+                    id="todo-title"
+                    placeholder="Es. Preparare documenti"
+                    required
+                >
+
+
+                <label for="todo-deadline">
+                    Scadenza
+                </label>
+
+                <input
+                    type="date"
+                    id="todo-deadline"
+                >
+
+
+                <label for="todo-notes">
+                    Note
+                </label>
+
+                <textarea
+                    id="todo-notes"
+                    rows="3"
+                    placeholder="Eventuali note..."
+                ></textarea>
+
+
+                <div class="todo-form-buttons">
+
+                    <button type="submit">
+                        Salva
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancel-todo"
+                    >
+                        Annulla
+                    </button>
+
+                    <button
+                        type="button"
+                        id="delete-todo"
+                    >
+                        Elimina
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- LISTA ATTIVITÀ -->
+
+        <div id="todo-list"></div>
 
     </section>
+
+</section>
 
 
     <!-- ============================= -->
